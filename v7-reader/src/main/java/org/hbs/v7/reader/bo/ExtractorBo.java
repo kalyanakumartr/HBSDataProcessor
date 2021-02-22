@@ -11,6 +11,8 @@ import org.hbs.v7.beans.model.resume.DataExtractorPattern;
 
 public interface ExtractorBo extends Serializable
 {
+	List<IConfiguration> getConfigurationList(String producerId, EMedia eMedia, EMediaMode eMediaMode);
+
 	List<IConfiguration> getConfigurationList(EMedia eMedia, EMediaMode eMediaMode);
 
 	long getLastEmailSentDate(ConfigurationEmail config);

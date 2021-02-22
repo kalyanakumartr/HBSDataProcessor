@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import javax.mail.MessagingException;
 
-import org.hbs.core.kafka.IKafkaConstants;
 import org.hbs.v7.beans.DataInTopicBean;
+import org.hbs.v7.kafka.IReaderKafkaConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class DataExtractConsumers implements IKafkaConstants
+public class DataExtractConsumers implements IReaderKafkaConstants
 {
 	private static final long	serialVersionUID	= -772482917892822104L;
 	private final Logger LOGGER = LoggerFactory.getLogger(DataExtractConsumers.class);

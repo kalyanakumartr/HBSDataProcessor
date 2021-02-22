@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.hbs.v7.beans.model.IncomingData.EExtension;
+import org.hbs.core.beans.model.channel.EExtension;
 import org.json.simple.JSONObject;
 import org.jsoup.nodes.Document;
 

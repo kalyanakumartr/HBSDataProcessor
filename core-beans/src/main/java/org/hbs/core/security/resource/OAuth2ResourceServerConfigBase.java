@@ -34,12 +34,17 @@ public abstract class OAuth2ResourceServerConfigBase extends ResourceServerConfi
 				for (ERole eRole : ePath.getRoles())
 				{
 					if (CommonValidator.isNotNullNotEmpty(eRole.name()))
-						http.authorizeRequests().antMatchers(ePath.getPath()).hasAuthority(eRole.name().toUpperCase()).anyRequest().authenticated();
+					{
+						http.authorizeRequests().antMatchers(ePath.getPath()).hasAuthority(eRole.name().toUpperCase());
+					}
 					else
-						http.authorizeRequests().antMatchers(ePath.getPath()).authenticated();
+					{
+						http.authorizeRequests().antMatchers(ePath.getPath());
+					}
 				}
 			}
 		}
+		http.authorizeRequests().anyRequest().authenticated();
 		http.csrf()//
 				.disable()//
 				.authorizeRequests()//

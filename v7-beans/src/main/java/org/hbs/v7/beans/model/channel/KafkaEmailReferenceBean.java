@@ -1,4 +1,4 @@
-package org.hbs.core.kafka;
+package org.hbs.v7.beans.model.channel;
 
 import java.io.Serializable;
 import java.util.Date;

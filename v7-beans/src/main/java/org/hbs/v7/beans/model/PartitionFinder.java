@@ -2,10 +2,10 @@ package org.hbs.v7.beans.model;
 
 import java.io.Serializable;
 
-import org.hbs.core.kafka.IKafkaConstants.EPartition;
-import org.hbs.core.kafka.IKafkaConstants.ETopic;
-import org.hbs.core.kafka.KAFKAPartition;
-import org.hbs.v7.beans.model.IncomingData.EExtension;
+import org.hbs.core.beans.model.channel.EExtension;
+import org.hbs.core.kafka.IKAFKAPartition;
+import org.hbs.v7.kafka.IReaderKafkaConstants.EPartition;
+import org.hbs.v7.kafka.IReaderKafkaConstants.ETopic;
 
 public class PartitionFinder implements Serializable
 {
@@ -26,12 +26,12 @@ public class PartitionFinder implements Serializable
 		return partitionFinder;
 	}
 
-	public KAFKAPartition find(ETopic eTopic, EMessagePriority priority) throws Exception
+	public IKAFKAPartition find(ETopic eTopic, EMessagePriority priority) throws Exception
 	{
 		return find(eTopic, priority, EExtension.Invalid);
 	}
 
-	public KAFKAPartition find(ETopic eTopic, EMessagePriority priority, EExtension extension) throws Exception
+	public IKAFKAPartition find(ETopic eTopic, EMessagePriority priority, EExtension extension) throws Exception
 	{
 		switch ( eTopic )
 		{
@@ -61,7 +61,7 @@ public class PartitionFinder implements Serializable
 								return EPartition.OpenOffice;
 							case XLS :
 							case XLSX :
-							case ODS:
+							case ODS :
 								return EPartition.Excel;
 							case PDF :
 								return EPartition.Pdf;
@@ -86,7 +86,7 @@ public class PartitionFinder implements Serializable
 								return EPartition.OpenOffice_Expedite;
 							case XLS :
 							case XLSX :
-							case ODS:
+							case ODS :
 								return EPartition.Excel_Expedite;
 							case PDF :
 								return EPartition.Pdf_Expedite;

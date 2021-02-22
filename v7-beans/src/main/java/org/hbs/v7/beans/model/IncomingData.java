@@ -32,30 +32,6 @@ import org.hbs.v7.beans.model.resume.CustomerProducer;
 @Table(name = "resume_incoming_data")
 public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 {
-	public enum EExtension implements EnumInterface
-	{
-		// RAR we are not supporting due to 3rd party license
-		Invalid, Zip, _7z, Doc, Docx, ODT, XLS, XLSX, ODS, PDF, HTML, HTM, Json, Csv;
-
-		public static EExtension isValid(String fileName)
-		{
-			if (fileName.indexOf(DOT) > 0)
-			{
-				for (EExtension EE : EExtension.values())
-				{
-					if (EE.name().toLowerCase().endsWith(fileName.substring(fileName.lastIndexOf(DOT) + 1).toLowerCase()))
-						return EE;
-				}
-			}
-			return EExtension.Invalid;
-		}
-
-		public static String format()
-		{
-			return EWrap.Brace.enclose((Object[]) EExtension.values());
-		}
-	}
-
 	public enum EIncomingStatus implements EnumInterface
 	{
 		New, Ready, InProcess, Completed, AttachmentReadError, InvalidAttachment, UnRecognizedError, Timeout
@@ -114,7 +90,7 @@ public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 	}
 
 	@Transient
-	public EMessagePriority findPriority()
+	public EMessagePriority acquirePriority()
 	{
 		return priority;
 	}
