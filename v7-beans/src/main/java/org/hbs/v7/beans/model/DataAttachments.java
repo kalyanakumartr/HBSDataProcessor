@@ -19,7 +19,7 @@ import org.hbs.v7.beans.DataInTopicBean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "resume_attachments") // Change over DB Table name
+@Table(name = "operational_process_attachments") // Change over DB Table name
 public class DataAttachments extends CommonFileUpload implements IConstProperty
 {
 

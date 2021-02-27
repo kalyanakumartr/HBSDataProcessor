@@ -23,7 +23,7 @@ public abstract class CommonAddress implements IAddress
 	protected String			landmark;
 	protected String			city;
 	protected State				state				= new State();
-	protected Country			country				= new Country();
+	protected DisplayOrderAndStatus			country				= new Country();
 	protected String			pincode;
 
 	public CommonAddress()
@@ -78,7 +78,7 @@ public abstract class CommonAddress implements IAddress
 	@Override
 	@ManyToOne(targetEntity = Country.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "country")
-	public Country getCountry()
+	public DisplayOrderAndStatus getCountry()
 	{
 		return country;
 	}
@@ -128,7 +128,7 @@ public abstract class CommonAddress implements IAddress
 	}
 
 	@Override
-	public void setCountry(Country country)
+	public void setCountry(DisplayOrderAndStatus country)
 	{
 		this.country = country;
 	}

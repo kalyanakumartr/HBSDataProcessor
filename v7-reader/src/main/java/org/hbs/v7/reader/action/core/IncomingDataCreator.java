@@ -42,7 +42,7 @@ public class IncomingDataCreator implements Serializable
 
 	public void unpackAndCreateDataAttachmentSet(IncomingData incomingData, IAttachmentInfoBean infoBean, Set<DataAttachments> attachmentsSet) throws IOException, CustomException, MessagingException
 	{
-		System.out.println(infoBean.getFileName() + " >>>>>>>>>>>>> uidMsg.getExtension()>>>>>>>>>>>>>>>>" + infoBean.getExtension());
+		System.out.println(infoBean.getFileName() + " >>>>>>>>>>>>> IAttachmentInfoBean.getExtension()>>>>>>>>>>>>>>>>" + infoBean.getExtension());
 		switch ( infoBean.getExtension() )
 		{
 			case Invalid :

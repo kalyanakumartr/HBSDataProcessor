@@ -26,10 +26,10 @@ import org.hbs.core.util.EBusinessKey;
 import org.hbs.core.util.EnumInterface;
 import org.hbs.core.util.ICRUDBean;
 import org.hbs.core.util.IConstProperty;
-import org.hbs.v7.beans.model.resume.CustomerProducer;
+import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
 
 @Entity
-@Table(name = "resume_incoming_data")
+@Table(name = "operational_process_incoming_data")
 public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 {
 	public enum EIncomingStatus implements EnumInterface
