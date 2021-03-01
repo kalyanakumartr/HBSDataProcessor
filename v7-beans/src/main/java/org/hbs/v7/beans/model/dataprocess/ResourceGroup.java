@@ -25,6 +25,12 @@ public class ResourceGroup extends DisplayOrderAndStatus implements ICRUDBean, C
 		super();
 	}
 
+	public ResourceGroup(String groupId)
+	{
+		super();
+		this.groupId = groupId;
+	}
+
 	public ResourceGroup(String groupId, String groupName)
 	{
 		super();

@@ -25,6 +25,12 @@ public class OperationalSubCountry  extends DisplayOrderAndStatus implements ICR
 		super();
 	}
 
+	public OperationalSubCountry(String country)
+	{
+		super();
+		this.country = country;
+	}
+	
 	public OperationalSubCountry(String country, String countryName, boolean status)
 	{
 		super();

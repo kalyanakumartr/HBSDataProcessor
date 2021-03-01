@@ -7,28 +7,16 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.odf.OpenDocumentParser;
 import org.apache.tika.sax.BodyContentHandler;
-import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
 import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.extractor.resume.processor.DataExtractorService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OpenOfficeDataExtractor extends DataExtractorBase implements IDataExtractor
 {
 	private static final long	serialVersionUID	= -3403166786849575868L;
-	DataInTopicBean				inBean;
 
-	public OpenOfficeDataExtractor(DataInTopicBean inBean)
-	{
-		this.inBean = inBean;
-	}
-
-	@Override
-	public void execute()
-	{
-		DataExtractorService.getInstance().execute(read(inBean));
-	}
-
-	MediatorBean read(DataInTopicBean inBean)
+	MediatorBean read()
 	{
 		OpenDocumentParser openDocument = null;
 		try
@@ -71,10 +59,4 @@ public class OpenOfficeDataExtractor extends DataExtractorBase implements IDataE
 		}
 		return null;
 	}
-
-	public static OpenOfficeDataExtractor getInstance(DataInTopicBean inBean)
-	{
-		return new OpenOfficeDataExtractor(inBean);
-	}
-
 }

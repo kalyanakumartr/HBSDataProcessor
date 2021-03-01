@@ -1,6 +1,7 @@
 package org.hbs.v7.beans.model.dataprocess;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,7 @@ import org.hbs.core.beans.model.Producers;
 import org.hbs.core.util.EnumInterface;
 
 @Entity(name = "CustomerProducer")
+@DiscriminatorValue("Producer")
 public class CustomerProducer extends Producers
 {
 	public enum EProducerStatus implements EnumInterface
@@ -24,6 +26,12 @@ public class CustomerProducer extends Producers
 	public CustomerProducer()
 	{
 		super();
+	}
+	
+	public CustomerProducer(String producerId)
+	{
+		super();
+		this.producerId = producerId;
 	}
 
 	@Enumerated(EnumType.STRING)

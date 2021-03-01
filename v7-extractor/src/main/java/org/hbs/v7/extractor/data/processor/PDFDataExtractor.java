@@ -7,28 +7,16 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
-import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
 import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.extractor.resume.processor.DataExtractorService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PDFDataExtractor extends DataExtractorBase implements IDataExtractor
 {
 	private static final long	serialVersionUID	= -3403166786849575868L;
-	DataInTopicBean				inBean;
 
-	public PDFDataExtractor(DataInTopicBean inBean)
-	{
-		this.inBean = inBean;
-	}
-
-	@Override
-	public void execute()
-	{
-		DataExtractorService.getInstance().execute(read(inBean));
-	}
-
-	MediatorBean read(DataInTopicBean inBean)
+	MediatorBean read()
 	{
 		PDFParser pdfparser = null;
 		try
@@ -70,10 +58,4 @@ public class PDFDataExtractor extends DataExtractorBase implements IDataExtracto
 		}
 		return null;
 	}
-
-	public static PDFDataExtractor getInstance(DataInTopicBean inBean)
-	{
-		return new PDFDataExtractor(inBean);
-	}
-
 }

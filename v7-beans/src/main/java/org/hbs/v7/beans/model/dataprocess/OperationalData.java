@@ -3,6 +3,7 @@ package org.hbs.v7.beans.model.dataprocess;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -34,7 +35,22 @@ public class OperationalData implements ICRUDBean, EBusinessKey
 	public OperationalData()
 	{
 		super();
+	}
+
+	public OperationalData(String dataURN)
+	{
+		super();
 		this.dataId = getBusinessKey();
+		this.operationalProcess = new OperationalProcess(dataURN);
+	}
+
+	public OperationalData(String dataId, OperationalProcess operationalProcess, OperationalRoadData roadData, Set<OperationalTask> taskList)
+	{
+		super();
+		this.dataId = dataId;
+		this.operationalProcess = operationalProcess;
+		this.roadData = roadData;
+		this.taskList = taskList;
 	}
 
 	@Override
@@ -50,7 +66,7 @@ public class OperationalData implements ICRUDBean, EBusinessKey
 		return dataId;
 	}
 
-	@ManyToOne(targetEntity = OperationalProcess.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = OperationalProcess.class, fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name = "dataURN")
 	public OperationalProcess getOperationalProcess()
 	{

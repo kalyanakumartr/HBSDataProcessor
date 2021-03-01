@@ -110,6 +110,7 @@ public class DataAttachments extends CommonFileUpload implements IConstProperty
 	public DataInTopicBean constructDataInTopicBean()
 	{
 		DataInTopicBean inBean = new DataInTopicBean();
+		inBean.setDataURN(this.dataURN);
 		inBean.setAttachmentAutoId(this.getAutoId());
 		inBean.setExternal(false);
 		inBean.setBaseFolderPath(this.getUploadFileFolderURL());

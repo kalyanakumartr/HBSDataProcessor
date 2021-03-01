@@ -26,7 +26,10 @@ import org.hbs.v7.beans.model.DataAttachments;
 import org.hbs.v7.beans.model.IncomingData;
 import org.hbs.v7.beans.model.IncomingData.EIncomingStatus;
 import org.hbs.v7.beans.model.PartitionFinder;
+import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
+import org.hbs.v7.beans.model.dataprocess.OperationalProcess;
 import org.hbs.v7.dao.IncomingDao;
+import org.hbs.v7.dao.OperationalProcessDao;
 import org.hbs.v7.kafka.IReaderKafkaConstants;
 import org.hbs.v7.reader.action.core.IncomingDataCreator;
 import org.slf4j.Logger;
@@ -45,11 +48,15 @@ import com.sun.mail.imap.IMAPFolder;
 public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IReaderKafkaConstants
 {
 
-	private static final long	serialVersionUID	= -3529623337510779624L;
+	private static final long		serialVersionUID	= -3529623337510779624L;
 
 	@Autowired
-	private IncomingDao			incomingDao;
-	private final Logger		logger				= LoggerFactory.getLogger(InBoxReaderIMAPConsumer.class);
+	private IncomingDao				incomingDao;
+
+	@Autowired
+	private OperationalProcessDao	processDao;
+
+	private final Logger			logger				= LoggerFactory.getLogger(InBoxReaderIMAPConsumer.class);
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = MESSAGE_TOPIC, partitions = { NORMAL, EXPEDITE }), groupId = MESSAGE_GROUP, clientIdPrefix = EMAIL)
 	public void consume(@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition, String payload)
@@ -80,6 +87,12 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 
 				if (CommonValidator.isNotNullNotEmpty(incomingData))
 				{
+					OperationalProcess process = new OperationalProcess();
+					process.getProducerList().add(new CustomerProducer(config.getProducerId()));
+					process.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+					process.setStatus(true);
+					processDao.save(process);
+
 					incomingData.setCandidateEmail(message.getFrom()[0].toString());
 					incomingData.setMedia(EMedia.Email);
 					incomingData.setIncomingStatus(EIncomingStatus.New);
@@ -89,6 +102,11 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 					incomingData.setReaderInstance(this.getClass().getSimpleName());
 					incomingData.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 					incomingData.setProducer(new Producers(config.getProducerId()));
+
+					for (DataAttachments _DATT : incomingData.getAttachmentList())
+					{
+						_DATT.setDataURN(process.getDataURN());
+					}
 					incomingDao.save(incomingData);
 
 					for (DataAttachments _DATT : incomingData.getAttachmentList())
@@ -161,5 +179,4 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 		return null;
 	}
 
-	
 }

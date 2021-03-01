@@ -4,30 +4,18 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
 import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.extractor.resume.processor.DataExtractorService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JSONDataExtractor extends DataExtractorBase implements IDataExtractor
 {
 	private static final long	serialVersionUID	= -3403166786849575868L;
-	DataInTopicBean				inBean;
 
-	public JSONDataExtractor(DataInTopicBean inBean)
-	{
-		this.inBean = inBean;
-	}
-
-	@Override
-	public void execute()
-	{
-		DataExtractorService.getInstance().execute(read(inBean));
-	}
-
-	MediatorBean read(DataInTopicBean inBean)
+	MediatorBean read()
 	{
 		JSONParser parser = new JSONParser();
 		try
@@ -56,11 +44,6 @@ public class JSONDataExtractor extends DataExtractorBase implements IDataExtract
 		{
 		}
 		return null;
-	}
-
-	public static JSONDataExtractor getInstance(DataInTopicBean inBean)
-	{
-		return new JSONDataExtractor(inBean);
 	}
 
 }

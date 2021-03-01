@@ -4,28 +4,16 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
 import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.extractor.resume.processor.DataExtractorService;
+import org.springframework.stereotype.Component;
 
-public class ExcelDataExtractor extends DataExtractorBase implements IDataExtractor
+@Component
+public class ExcelDataExtractor extends DataExtractorBase 
 {
 	private static final long	serialVersionUID	= -3403166786849575868L;
-	DataInTopicBean				inBean;
 
-	public ExcelDataExtractor(DataInTopicBean inBean)
-	{
-		this.inBean = inBean;
-	}
-
-	@Override
-	public void execute()
-	{
-		DataExtractorService.getInstance().execute(read(inBean));
-	}
-
-	MediatorBean read(DataInTopicBean inBean)
+	MediatorBean read()
 	{
 		XSSFWorkbook book = null;
 		try
@@ -64,11 +52,6 @@ public class ExcelDataExtractor extends DataExtractorBase implements IDataExtrac
 			}
 		}
 		return null;
-	}
-
-	public static ExcelDataExtractor getInstance(DataInTopicBean inBean)
-	{
-		return new ExcelDataExtractor(inBean);
 	}
 
 }

@@ -5,29 +5,17 @@ import java.io.StringWriter;
 
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
 import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.extractor.resume.processor.DataExtractorService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WordDataExtractor extends DataExtractorBase implements IDataExtractor
 {
 	private static final long	serialVersionUID	= -3403166786849575868L;
-	DataInTopicBean				inBean;
-
-	public WordDataExtractor(DataInTopicBean inBean)
-	{
-		this.inBean = inBean;
-	}
-
-	@Override
-	public void execute()
-	{
-		DataExtractorService.getInstance().execute(read(inBean));
-	}
 
 	@SuppressWarnings("resource")
-	public MediatorBean read(DataInTopicBean inBean)
+	public MediatorBean read()
 	{
 		XWPFDocument document = null;
 		try
@@ -67,10 +55,4 @@ public class WordDataExtractor extends DataExtractorBase implements IDataExtract
 		}
 		return null;
 	}
-
-	public static WordDataExtractor getInstance(DataInTopicBean inBean)
-	{
-		return new WordDataExtractor(inBean);
-	}
-
 }

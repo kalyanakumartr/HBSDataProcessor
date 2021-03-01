@@ -12,6 +12,7 @@ public class MediatorBean implements Serializable
 {
 
 	private static final long	serialVersionUID	= 6909459362905584030L;
+	public String				dataURN;
 	public String				content;
 	private XSSFSheet			excel;
 	private Document			html;
@@ -100,4 +101,5 @@ public class MediatorBean implements Serializable
 		this.json = json;
 	}
 
+	
 }

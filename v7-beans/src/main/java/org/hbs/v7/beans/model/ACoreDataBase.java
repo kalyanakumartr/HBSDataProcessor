@@ -10,15 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
-import org.hbs.core.beans.model.CommonBeanFields;
+import org.hbs.core.beans.model.CommonDateAndStatusFields;
+import org.hbs.core.util.EBusinessKey;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-// @Entity
-// @Table(name = "core_data")
-// @Inheritance(strategy = InheritanceType.JOINED)
 @MappedSuperclass
-public abstract class ACoreDataBase extends CommonBeanFields implements ICoreData
+public abstract class ACoreDataBase extends CommonDateAndStatusFields implements ICoreData, EBusinessKey
 {
 	private static final long		serialVersionUID	= 5357766946700135577L;
 	protected String				dataURN;

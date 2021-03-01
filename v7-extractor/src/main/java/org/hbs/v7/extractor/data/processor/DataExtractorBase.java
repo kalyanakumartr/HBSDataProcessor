@@ -1,25 +1,42 @@
 package org.hbs.v7.extractor.data.processor;
 
-import java.io.Serializable;
-
 import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.data.MediatorBean;
 import org.hbs.v7.dao.DataAttachmentDao;
+import org.hbs.v7.extractor.resume.processor.DataExtractorService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class DataExtractorBase implements Serializable
+public abstract class DataExtractorBase implements IDataExtractor
 {
 
-	private static final long serialVersionUID = 650213083715426205L;
-	
+	private static final long	serialVersionUID	= 650213083715426205L;
+
+	DataInTopicBean				inBean;
+
 	@Autowired
-	protected DataAttachmentDao datDao;
+	DataExtractorService		dataExtractorService;
+
+	@Autowired
+	protected DataAttachmentDao	datDao;
 
 	public DataExtractorBase()
 	{
 		super();
 	}
+
+	public IDataExtractor setInBean(DataInTopicBean inBean)
+	{
+		this.inBean = inBean;
+		return this;
+	}
+
+	abstract MediatorBean read();
 	
-	abstract MediatorBean read(DataInTopicBean inBean);
+	@Override
+	public void execute()
+	{
+		dataExtractorService.execute(read());
+	}
+
 
 }

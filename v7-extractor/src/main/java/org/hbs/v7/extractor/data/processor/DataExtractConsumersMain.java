@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class DataExtractConsumersMain implements IReaderKafkaConstants
+public class DataExtractConsumersMain extends AutowiredDataExtractors implements IReaderKafkaConstants
 {
 	private static final long	serialVersionUID	= -772482917892822104L;
 	private final Logger LOGGER = LoggerFactory.getLogger(DataExtractConsumersMain.class);
@@ -29,8 +29,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		WordDataExtractor.getInstance(inBean).execute();
-
+		wordDataExtractor.setInBean(inBean).execute();
 	}
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = DATA_EXTRACT_TOPIC, partitions = { OPENOFFICE, OPENOFFICE_EXPEDITE }), groupId = DATA_EXTRACT_GROUP)
@@ -40,8 +39,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		OpenOfficeDataExtractor.getInstance(inBean).execute();
-
+		openOfficeDataExtractor.setInBean(inBean).execute();
 	}
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = DATA_EXTRACT_TOPIC, partitions = { PDF, PDF_EXPEDITE }), groupId = DATA_EXTRACT_GROUP)
@@ -54,8 +52,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		PDFDataExtractor.getInstance(inBean).execute();
-		
+		pdfDataExtractor.setInBean(inBean).execute();
 		System.out.println(">>>>>>>>>>>>>>>>>>>>...........ENDS..........>>>>>>>>>>>>>>>>>>>>>>>>");
 
 	}
@@ -67,8 +64,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		HTMLDataExtractor.getInstance(inBean).execute();
-
+		htmlDataExtractor.setInBean(inBean).execute();
 	}
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = DATA_EXTRACT_TOPIC, partitions = { JSON, JSON_EXPEDITE }), groupId = DATA_EXTRACT_GROUP)
@@ -78,8 +74,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		JSONDataExtractor.getInstance(inBean).execute();
-
+		jsonDataExtractor.setInBean(inBean).execute();
 	}
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = DATA_EXTRACT_TOPIC, partitions = { EXCEL, EXCEL_EXPEDITE }), groupId = DATA_EXTRACT_GROUP)
@@ -89,7 +84,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		ExcelDataExtractor.getInstance(inBean).execute();
+		excelDataExtractor.setInBean(inBean).execute();
 
 	}
 
@@ -100,7 +95,7 @@ public class DataExtractConsumersMain implements IReaderKafkaConstants
 
 		DataInTopicBean inBean = new ObjectMapper().readValue(payload, DataInTopicBean.class);
 
-		CSVDataExtractor.getInstance(inBean).execute();
+		csvDataExtractor.setInBean(inBean).execute();
 
 	}
 }
