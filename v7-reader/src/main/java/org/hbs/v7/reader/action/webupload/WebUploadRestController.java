@@ -25,7 +25,10 @@ import org.hbs.v7.beans.model.DataAttachments;
 import org.hbs.v7.beans.model.IncomingData;
 import org.hbs.v7.beans.model.IncomingData.EIncomingStatus;
 import org.hbs.v7.beans.model.PartitionFinder;
+import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
+import org.hbs.v7.beans.model.dataprocess.OperationalProcess;
 import org.hbs.v7.dao.IncomingDao;
+import org.hbs.v7.dao.OperationalProcessDao;
 import org.hbs.v7.kafka.IReaderKafkaConstants.ETopic;
 import org.hbs.v7.reader.action.core.IncomingDataCreator;
 import org.hbs.v7.reader.bo.ExtractorBo;
@@ -58,6 +61,9 @@ public class WebUploadRestController implements IWebUploadRestController
 
 	@Autowired
 	private IncomingDao			incomingDao;
+	
+	@Autowired
+	private OperationalProcessDao	processDao;
 
 	@Override
 	public ResponseEntity<?> processUpload(Authentication auth, @PathVariable("uploadFileType") String uploadFileType, @RequestParam("files[]") MultipartFile[] files)
@@ -79,6 +85,12 @@ public class WebUploadRestController implements IWebUploadRestController
 
 				if (CommonValidator.isNotNullNotEmpty(incomingData))
 				{
+					OperationalProcess process = new OperationalProcess();
+					process.getProducerList().add(new CustomerProducer(wuBean.producerId));
+					process.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+					process.setStatus(true);
+					processDao.save(process);
+					
 					incomingData.setCandidateEmail(EAuth.User.getUserId(auth));
 					incomingData.setMedia(EMedia.WebUpload);
 					incomingData.setIncomingStatus(EIncomingStatus.New);
@@ -86,6 +98,12 @@ public class WebUploadRestController implements IWebUploadRestController
 					incomingData.setReaderInstance(this.getClass().getSimpleName());
 					incomingData.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 					incomingData.setProducer(new Producers(wuBean.producerId));
+					
+					for (DataAttachments _DATT : incomingData.getAttachmentList())
+					{
+						_DATT.setDataURN(process.getDataURN());
+					}
+					
 					incomingDao.save(incomingData);
 
 					for (DataAttachments _DATT : incomingData.getAttachmentList())
