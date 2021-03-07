@@ -1,10 +1,14 @@
 package org.hbs.v7.beans.model.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.hbs.core.beans.model.channel.EExtension;
+import org.hbs.v7.beans.model.ICoreData;
+import org.hbs.v7.dao.base.DynaRepo;
 import org.json.simple.JSONObject;
 import org.jsoup.nodes.Document;
 
@@ -12,6 +16,7 @@ public class MediatorBean implements Serializable
 {
 
 	private static final long	serialVersionUID	= 6909459362905584030L;
+
 	public String				dataURN;
 	public String				content;
 	private XSSFSheet			excel;
@@ -19,10 +24,14 @@ public class MediatorBean implements Serializable
 	private CSVParser			csv;
 	private JSONObject			json;
 	public EExtension			extension;
+	public List<ICoreData>		coreDataList		= new ArrayList<ICoreData>();
+	public DynaRepo				coreRepoDao;
 
-	public MediatorBean(EExtension extension)
+	public MediatorBean(EExtension extension, String dataURN, DynaRepo coreRepoDao)
 	{
+		this.dataURN = dataURN;
 		this.extension = extension;
+		this.coreRepoDao = coreRepoDao;
 	}
 
 	public JSONObject jsonInstance()
@@ -101,5 +110,4 @@ public class MediatorBean implements Serializable
 		this.json = json;
 	}
 
-	
 }

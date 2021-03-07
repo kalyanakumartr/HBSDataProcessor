@@ -28,8 +28,8 @@ import org.hbs.v7.beans.model.IncomingData.EIncomingStatus;
 import org.hbs.v7.beans.model.PartitionFinder;
 import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
 import org.hbs.v7.beans.model.dataprocess.OperationalProcess;
-import org.hbs.v7.dao.IncomingDao;
 import org.hbs.v7.dao.OperationalProcessDao;
+import org.hbs.v7.dao.base.IncomingDao;
 import org.hbs.v7.kafka.IReaderKafkaConstants;
 import org.hbs.v7.reader.action.core.IncomingDataCreator;
 import org.slf4j.Logger;
@@ -55,13 +55,15 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 
 	@Autowired
 	private OperationalProcessDao	processDao;
+	
+	int iter = 0;
 
 	private final Logger			logger				= LoggerFactory.getLogger(InBoxReaderIMAPConsumer.class);
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = MESSAGE_TOPIC, partitions = { NORMAL, EXPEDITE }), groupId = MESSAGE_GROUP, clientIdPrefix = EMAIL)
 	public void consume(@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition, String payload)
 	{
-		logger.info(String.format("#### -> Consumed message -> %s", payload));
+		logger.info(String.format((iter++) + "#### -> Consumed message -> %s", payload));
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		System.out.println(">>>>>>>>>>>>>>>>>>>" + new Date() + ">>>>>>>flow > " + partition);
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -92,6 +94,8 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 					process.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 					process.setStatus(true);
 					processDao.save(process);
+					processDao.flush();
+					
 
 					incomingData.setCandidateEmail(message.getFrom()[0].toString());
 					incomingData.setMedia(EMedia.Email);

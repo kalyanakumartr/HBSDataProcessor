@@ -37,7 +37,7 @@ public interface IPathBase extends IConstProperty
 		Success, Failure, Exists, Not_Exists
 	}
 
-	public enum ERole implements EnumInterface
+	public enum ERole implements IERole
 	{
 		Administrator, Consumer, Dummy, Employee, Producer, SuperAdminRole;
 	}

@@ -28,6 +28,8 @@ import org.hbs.core.util.ICRUDBean;
 import org.hbs.core.util.IConstProperty;
 import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "operational_process_incoming_data")
 public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
@@ -101,6 +103,7 @@ public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 	}
 
 	@OneToMany(targetEntity = DataAttachments.class, fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "incomingData")
+	@JsonIgnore
 	public Set<DataAttachments> getAttachmentList()
 	{
 		return attachmentList;
@@ -115,6 +118,7 @@ public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 
 	@Override
 	@Transient
+	@JsonIgnore
 	public String getBusinessKey(String... combination)
 	{
 		return EKey.Auto();
@@ -172,6 +176,7 @@ public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 
 	@ManyToOne(targetEntity = CustomerProducer.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "producerId")
+	@JsonIgnore
 	public IProducers getProducer()
 	{
 		return producer;
@@ -179,6 +184,7 @@ public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 
 	@ManyToOne(targetEntity = ProducersProperty.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "propertyId")
+	@JsonIgnore
 	public ProducersProperty getProducerProperty()
 	{
 		return producerProperty;

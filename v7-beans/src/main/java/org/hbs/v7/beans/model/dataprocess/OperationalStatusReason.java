@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.hbs.core.beans.model.DisplayOrderAndStatus;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,6 +32,12 @@ public class OperationalStatusReason  extends DisplayOrderAndStatus implements S
 		super();
 	}
 
+	public OperationalStatusReason(String reasonId)
+	{
+		super();
+		this.reasonId = reasonId;
+	}
+	
 	public OperationalStatusReason(OperationalStatus status, String description, String reason, String reasonId)
 	{
 		super();
@@ -61,6 +68,7 @@ public class OperationalStatusReason  extends DisplayOrderAndStatus implements S
 
 	@ManyToOne(targetEntity = OperationalStatus.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "statusId", nullable = false)
+	@JsonIgnore
 	public OperationalStatus getOperationalStatus()
 	{
 		return operationalStatus;

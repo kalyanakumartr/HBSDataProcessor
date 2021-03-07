@@ -12,9 +12,11 @@ import javax.persistence.Table;
 import org.hbs.core.beans.model.Producers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "operational_process_producers") 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class OperationalProcessProducers implements Serializable
 {
 	private static final long		serialVersionUID	= -5286611663179152878L;

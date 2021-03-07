@@ -1,0 +1,6 @@
+USE data_process;
+TRUNCATE `operational_process`;
+TRUNCATE `operational_data`;
+TRUNCATE `operational_process_attachments`;
+TRUNCATE `operational_process_incoming_data`;
+TRUNCATE `operational_process_producers`;

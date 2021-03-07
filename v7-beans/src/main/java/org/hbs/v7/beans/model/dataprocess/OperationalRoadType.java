@@ -36,6 +36,12 @@ public class OperationalRoadType extends DisplayOrderAndStatus implements Serial
 		this.description = description;
 	}
 
+	public OperationalRoadType(String roadTypeId)
+	{
+		super();
+		this.roadTypeId = roadTypeId;
+	}
+
 	@Column(name = "description")
 	public String getDescription()
 	{

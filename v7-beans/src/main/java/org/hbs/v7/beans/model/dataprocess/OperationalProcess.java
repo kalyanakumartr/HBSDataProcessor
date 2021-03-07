@@ -11,11 +11,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hbs.v7.beans.model.ACoreDataBase;
+import org.hbs.v7.beans.model.ACoreBase;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "operational_process") // Resume or Invoices
-public class OperationalProcess extends ACoreDataBase
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class OperationalProcess extends ACoreBase
 {
 	private static final long		serialVersionUID	= 5049651757005693167L;
 
@@ -44,6 +48,7 @@ public class OperationalProcess extends ACoreDataBase
 
 	@ManyToOne(targetEntity = OperationalData.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "dataURN", insertable = false, updatable = false)
+	@JsonIgnore
 	public OperationalData getOperationalData()
 	{
 		return operationalData;

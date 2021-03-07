@@ -28,6 +28,12 @@ public class OperationalStatus extends DisplayOrderAndStatus implements Serializ
 		super();
 	}
 
+	public OperationalStatus(String statusId)
+	{
+		super();
+		this.statusId = statusId;
+	}
+	
 	public OperationalStatus(String statusId, String statusName, String description)
 	{
 		super();
