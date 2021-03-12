@@ -12,10 +12,10 @@ import org.hbs.core.dao.ProducerDao;
 import org.hbs.core.dao.ProducerPropertyDao;
 import org.hbs.core.security.resource.IPathBase.EMedia;
 import org.hbs.core.security.resource.IPathBase.EMediaMode;
-import org.hbs.v7.beans.model.channel.AutoConfigurationEmail;
-import org.hbs.v7.beans.model.data.DataExtractorPattern;
-import org.hbs.v7.dao.base.IncomingDao;
+import org.hbs.v7.channel.AutoConfigurationEmail;
+import org.hbs.v7.dao.IncomingDao;
 import org.hbs.v7.reader.action.email.InBoxReaderEmailFactory;
+import org.hbs.v7.userdefined.model.DataExtractorPattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

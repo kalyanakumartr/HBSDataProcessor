@@ -3,8 +3,8 @@ package org.hbs.v7.extractor.action.filetype;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.hbs.v7.beans.MediatorBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
-import org.hbs.v7.beans.model.data.MediatorBean;
 import org.hbs.v7.extractor.action.executor.DataExtractorBase;
 import org.hbs.v7.extractor.action.executor.IDataExtractor;
 import org.jsoup.Jsoup;

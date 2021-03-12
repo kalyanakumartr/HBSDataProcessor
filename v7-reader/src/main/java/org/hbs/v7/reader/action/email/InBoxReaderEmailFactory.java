@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.hbs.core.beans.model.IConfiguration;
 import org.hbs.core.beans.model.channel.ConfigurationEmail;
-import org.hbs.v7.beans.model.channel.AutoConfigurationEmail;
+import org.hbs.v7.channel.AutoConfigurationEmail;
 import org.hbs.v7.reader.action.core.InBoxReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

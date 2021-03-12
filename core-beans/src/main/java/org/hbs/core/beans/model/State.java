@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class State implements ICRUDBean, Comparable<State>
 {
 	private static final long	serialVersionUID	= -5149419121984598098L;
-	protected DisplayOrderAndStatus			country;
+	protected Country			country;
 	protected String			state;
 	protected boolean			status;
 
@@ -26,7 +26,7 @@ public class State implements ICRUDBean, Comparable<State>
 		super();
 	}
 
-	public State(DisplayOrderAndStatus country, String state)
+	public State(Country country, String state)
 	{
 		super();
 		this.country = country;
@@ -36,7 +36,7 @@ public class State implements ICRUDBean, Comparable<State>
 	@ManyToOne(targetEntity = Country.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "country", nullable = false)
 	@JsonIgnore
-	public DisplayOrderAndStatus getCountry()
+	public Country getCountry()
 	{
 		return country;
 	}
@@ -60,7 +60,7 @@ public class State implements ICRUDBean, Comparable<State>
 		this.status = status;
 	}
 
-	public void setCountry(DisplayOrderAndStatus country)
+	public void setCountry(Country country)
 	{
 		this.country = country;
 	}

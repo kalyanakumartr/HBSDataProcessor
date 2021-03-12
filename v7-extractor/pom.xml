@@ -5,8 +5,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>ReZooms</groupId>
-		<artifactId>ReZooms</artifactId>
+		<groupId>RoadDataProcessor</groupId>
+		<artifactId>RoadDataProcessor</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>v7-extractor</artifactId>
@@ -87,17 +87,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>ReZooms</groupId>
+			<groupId>RoadDataProcessor</groupId>
 			<artifactId>core-util</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>ReZooms</groupId>
+			<groupId>RoadDataProcessor</groupId>
 			<artifactId>core-beans</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>ReZooms</groupId>
+			<groupId>RoadDataProcessor</groupId>
 			<artifactId>v7-beans</artifactId>
 			<version>${project.version}</version>
 		</dependency>

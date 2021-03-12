@@ -5,8 +5,8 @@ import java.io.StringWriter;
 
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.hbs.v7.beans.MediatorBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
-import org.hbs.v7.beans.model.data.MediatorBean;
 import org.hbs.v7.extractor.action.executor.DataExtractorBase;
 import org.hbs.v7.extractor.action.executor.IDataExtractor;
 import org.springframework.stereotype.Component;

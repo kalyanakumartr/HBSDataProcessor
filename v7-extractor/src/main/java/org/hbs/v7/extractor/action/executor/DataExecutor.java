@@ -4,10 +4,10 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.hbs.core.kafka.IKafkaConstants;
+import org.hbs.v7.beans.MediatorBean;
 import org.hbs.v7.beans.model.ICoreBase;
 import org.hbs.v7.beans.model.ICoreData;
-import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.dao.base.DynaRepo;
+import org.hbs.v7.dao.DynaRepo;
 import org.hbs.v7.provider.custom.DataProviderExecutorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

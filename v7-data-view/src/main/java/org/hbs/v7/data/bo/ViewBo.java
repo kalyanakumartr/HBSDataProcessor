@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.hbs.core.util.EnumInterface;
 import org.hbs.v7.beans.model.IncomingData;
-import org.hbs.v7.beans.model.dataprocess.OperationalData;
-import org.hbs.v7.beans.model.dataprocess.OperationalRoadType;
-import org.hbs.v7.beans.model.dataprocess.OperationalStatus;
-import org.hbs.v7.beans.model.dataprocess.OperationalStatusReason;
-import org.hbs.v7.beans.model.dataprocess.OperationalTask;
-import org.hbs.v7.beans.model.dataprocess.ResourceDeployment;
-import org.hbs.v7.beans.model.dataprocess.ResourceGroup;
+import org.hbs.v7.userdefined.model.OperationalData;
+import org.hbs.v7.userdefined.model.OperationalRoadType;
+import org.hbs.v7.userdefined.model.OperationalStatus;
+import org.hbs.v7.userdefined.model.OperationalStatusReason;
+import org.hbs.v7.userdefined.model.OperationalTask;
+import org.hbs.v7.userdefined.model.ResourceDeployment;
+import org.hbs.v7.userdefined.model.ResourceGroup;
 import org.hbs.v7.data.view.ViewFormBean;
 import org.springframework.security.core.Authentication;
 

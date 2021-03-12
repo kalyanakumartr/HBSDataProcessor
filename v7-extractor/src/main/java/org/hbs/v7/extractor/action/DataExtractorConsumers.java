@@ -12,7 +12,7 @@ import org.hbs.v7.extractor.action.filetype.JSONDataExtractor;
 import org.hbs.v7.extractor.action.filetype.OpenOfficeDataExtractor;
 import org.hbs.v7.extractor.action.filetype.PDFDataExtractor;
 import org.hbs.v7.extractor.action.filetype.WordDataExtractor;
-import org.hbs.v7.kafka.IReaderKafkaConstants;
+import org.hbs.v7.util.IKafkaTopicConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class DataExtractorConsumers implements IReaderKafkaConstants
+public class DataExtractorConsumers implements IKafkaTopicConstants
 {
 	private static final long			serialVersionUID	= -772482917892822104L;
 	private final Logger				LOGGER				= LoggerFactory.getLogger(DataExtractorConsumers.class);

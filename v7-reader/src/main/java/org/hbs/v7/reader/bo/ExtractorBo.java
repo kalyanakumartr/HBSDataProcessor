@@ -7,7 +7,7 @@ import org.hbs.core.beans.model.IConfiguration;
 import org.hbs.core.beans.model.channel.ConfigurationEmail;
 import org.hbs.core.security.resource.IPathBase.EMedia;
 import org.hbs.core.security.resource.IPathBase.EMediaMode;
-import org.hbs.v7.beans.model.data.DataExtractorPattern;
+import org.hbs.v7.userdefined.model.DataExtractorPattern;
 
 public interface ExtractorBo extends Serializable
 {

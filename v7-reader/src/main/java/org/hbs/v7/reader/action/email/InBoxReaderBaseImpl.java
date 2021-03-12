@@ -16,10 +16,10 @@ import org.hbs.core.kafka.GenericKafkaProducer;
 import org.hbs.core.kafka.IKAFKAPartition;
 import org.hbs.core.util.CommonValidator;
 import org.hbs.v7.beans.InBoxReaderTopicBean;
-import org.hbs.v7.beans.model.EMessagePriority;
-import org.hbs.v7.beans.model.PartitionFinder;
-import org.hbs.v7.beans.model.channel.AutoConfigurationEmail;
-import org.hbs.v7.kafka.IReaderKafkaConstants.ETopic;
+import org.hbs.v7.channel.AutoConfigurationEmail;
+import org.hbs.v7.util.EMessagePriority;
+import org.hbs.v7.util.IKafkaTopicConstants.ETopic;
+import org.hbs.v7.util.PartitionFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;

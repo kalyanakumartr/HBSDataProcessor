@@ -3,7 +3,7 @@
 	<name>core-admin</name>
 	<comment></comment>
 	<projects>
-		<project>ReZooms</project>
+		<project>RoadDataProcessor</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

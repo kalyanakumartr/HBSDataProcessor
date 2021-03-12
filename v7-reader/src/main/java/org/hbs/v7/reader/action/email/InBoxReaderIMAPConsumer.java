@@ -23,15 +23,15 @@ import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.InBoxReaderTopicBean;
 import org.hbs.v7.beans.UIDMimeMessageBean;
 import org.hbs.v7.beans.model.DataAttachments;
+import org.hbs.v7.beans.model.ICoreBase;
 import org.hbs.v7.beans.model.IncomingData;
 import org.hbs.v7.beans.model.IncomingData.EIncomingStatus;
-import org.hbs.v7.beans.model.PartitionFinder;
-import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
-import org.hbs.v7.beans.model.dataprocess.OperationalProcess;
-import org.hbs.v7.dao.OperationalProcessDao;
-import org.hbs.v7.dao.base.IncomingDao;
-import org.hbs.v7.kafka.IReaderKafkaConstants;
+import org.hbs.v7.dao.IncomingDao;
 import org.hbs.v7.reader.action.core.IncomingDataCreator;
+import org.hbs.v7.userdefined.dao.CoreBaseDao;
+import org.hbs.v7.userdefined.model.CoreBaseFactory;
+import org.hbs.v7.util.IKafkaTopicConstants;
+import org.hbs.v7.util.PartitionFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,20 +45,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.mail.imap.IMAPFolder;
 
 @Service
-public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IReaderKafkaConstants
+public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IKafkaTopicConstants
 {
 
-	private static final long		serialVersionUID	= -3529623337510779624L;
+	private static final long	serialVersionUID	= -3529623337510779624L;
 
 	@Autowired
-	private IncomingDao				incomingDao;
+	private IncomingDao			incomingDao;
 
 	@Autowired
-	private OperationalProcessDao	processDao;
-	
-	int iter = 0;
+	private CoreBaseDao			coreBaseDao;
 
-	private final Logger			logger				= LoggerFactory.getLogger(InBoxReaderIMAPConsumer.class);
+	int							iter				= 0;
+
+	private final Logger		logger				= LoggerFactory.getLogger(InBoxReaderIMAPConsumer.class);
 
 	@KafkaListener(topicPartitions = @TopicPartition(topic = MESSAGE_TOPIC, partitions = { NORMAL, EXPEDITE }), groupId = MESSAGE_GROUP, clientIdPrefix = EMAIL)
 	public void consume(@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition, String payload)
@@ -89,13 +89,8 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 
 				if (CommonValidator.isNotNullNotEmpty(incomingData))
 				{
-					OperationalProcess process = new OperationalProcess();
-					process.getProducerList().add(new CustomerProducer(config.getProducerId()));
-					process.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-					process.setStatus(true);
-					processDao.save(process);
-					processDao.flush();
-					
+					ICoreBase coreBase = CoreBaseFactory.getInstance(config.getProducerId());
+					coreBaseDao.save(coreBase);
 
 					incomingData.setCandidateEmail(message.getFrom()[0].toString());
 					incomingData.setMedia(EMedia.Email);
@@ -109,7 +104,7 @@ public class InBoxReaderIMAPConsumer extends InBoxReaderIMAPBase implements IRea
 
 					for (DataAttachments _DATT : incomingData.getAttachmentList())
 					{
-						_DATT.setDataURN(process.getDataURN());
+						_DATT.setDataURN(coreBase.getDataURN());
 					}
 					incomingDao.save(incomingData);
 

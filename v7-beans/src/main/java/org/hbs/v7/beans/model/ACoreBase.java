@@ -54,5 +54,4 @@ public abstract class ACoreBase extends CommonDateAndStatusFields implements ICo
 	{
 		this.attachmentList = attachmentList;
 	}
-
 }

@@ -1,9 +1,9 @@
 package org.hbs.v7.extractor.action.executor;
 
 import org.hbs.v7.beans.DataInTopicBean;
-import org.hbs.v7.beans.model.data.MediatorBean;
-import org.hbs.v7.dao.base.DataAttachmentDao;
-import org.hbs.v7.dao.base.DynaRepo;
+import org.hbs.v7.beans.MediatorBean;
+import org.hbs.v7.dao.DataAttachmentDao;
+import org.hbs.v7.dao.DynaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class DataExtractorBase implements IDataExtractor

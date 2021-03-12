@@ -22,16 +22,16 @@ import org.hbs.core.util.CommonValidator;
 import org.hbs.core.util.CustomException;
 import org.hbs.v7.beans.DataInTopicBean;
 import org.hbs.v7.beans.model.DataAttachments;
+import org.hbs.v7.beans.model.ICoreBase;
 import org.hbs.v7.beans.model.IncomingData;
 import org.hbs.v7.beans.model.IncomingData.EIncomingStatus;
-import org.hbs.v7.beans.model.PartitionFinder;
-import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
-import org.hbs.v7.beans.model.dataprocess.OperationalProcess;
-import org.hbs.v7.dao.OperationalProcessDao;
-import org.hbs.v7.dao.base.IncomingDao;
-import org.hbs.v7.kafka.IReaderKafkaConstants.ETopic;
+import org.hbs.v7.dao.IncomingDao;
 import org.hbs.v7.reader.action.core.IncomingDataCreator;
 import org.hbs.v7.reader.bo.ExtractorBo;
+import org.hbs.v7.userdefined.dao.CoreBaseDao;
+import org.hbs.v7.userdefined.model.CoreBaseFactory;
+import org.hbs.v7.util.IKafkaTopicConstants.ETopic;
+import org.hbs.v7.util.PartitionFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +47,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class WebUploadRestController implements IWebUploadRestController
 {
-	private static final long	serialVersionUID	= 7440761569052436826L;
-	
-	private final Logger		logger				= LoggerFactory.getLogger(WebUploadRestController.class);
-	
-	public String				INVALID_REQUEST_PARAMETERS				= "invalid.request.parameters";
+	private static final long	serialVersionUID			= 7440761569052436826L;
+
+	private final Logger		logger						= LoggerFactory.getLogger(WebUploadRestController.class);
+
+	public String				INVALID_REQUEST_PARAMETERS	= "invalid.request.parameters";
 
 	@Autowired
 	GenericKafkaProducer		gKafkaProducer;
@@ -61,9 +61,9 @@ public class WebUploadRestController implements IWebUploadRestController
 
 	@Autowired
 	private IncomingDao			incomingDao;
-	
+
 	@Autowired
-	private OperationalProcessDao	processDao;
+	private CoreBaseDao			coreBaseDao;
 
 	@Override
 	public ResponseEntity<?> processUpload(Authentication auth, @PathVariable("uploadFileType") String uploadFileType, @RequestParam("files[]") MultipartFile[] files)
@@ -85,12 +85,9 @@ public class WebUploadRestController implements IWebUploadRestController
 
 				if (CommonValidator.isNotNullNotEmpty(incomingData))
 				{
-					OperationalProcess process = new OperationalProcess();
-					process.getProducerList().add(new CustomerProducer(wuBean.producerId));
-					process.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-					process.setStatus(true);
-					processDao.save(process);
-					
+					ICoreBase coreBase = CoreBaseFactory.getInstance(wuBean.producerId);
+					coreBaseDao.save(coreBase);
+
 					incomingData.setCandidateEmail(EAuth.User.getUserId(auth));
 					incomingData.setMedia(EMedia.WebUpload);
 					incomingData.setIncomingStatus(EIncomingStatus.New);
@@ -98,12 +95,12 @@ public class WebUploadRestController implements IWebUploadRestController
 					incomingData.setReaderInstance(this.getClass().getSimpleName());
 					incomingData.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 					incomingData.setProducer(new Producers(wuBean.producerId));
-					
+
 					for (DataAttachments _DATT : incomingData.getAttachmentList())
 					{
-						_DATT.setDataURN(process.getDataURN());
+						_DATT.setDataURN(coreBase.getDataURN());
 					}
-					
+
 					incomingDao.save(incomingData);
 
 					for (DataAttachments _DATT : incomingData.getAttachmentList())

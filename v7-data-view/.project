@@ -3,7 +3,7 @@
 	<name>v7-data-view</name>
 	<comment></comment>
 	<projects>
-		<project>ReZooms</project>
+		<project>RoadDataProcessor</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,11 +1,13 @@
 package org.hbs.v7.beans.model;
 
-import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
-public interface ICoreBase extends Serializable
-{
+import org.hbs.core.beans.model.ICommonDateAndStatusFields;
+import org.hbs.core.beans.model.IProducers;
 
+public interface ICoreBase extends ICommonDateAndStatusFields
+{
 	public String getDataURN();
 
 	public Set<DataAttachments> getAttachmentList();
@@ -14,4 +16,5 @@ public interface ICoreBase extends Serializable
 
 	public void setAttachmentList(Set<DataAttachments> attachmentList);
 
+	public List<? extends IProducers> getProducerList();
 }

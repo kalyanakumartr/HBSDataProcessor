@@ -22,7 +22,7 @@ public interface IAddress extends EBusinessKey
 
 	public String getCity();
 
-	public DisplayOrderAndStatus getCountry();
+	public Country getCountry();
 
 	public String getLandmark();
 
@@ -42,7 +42,7 @@ public interface IAddress extends EBusinessKey
 
 	public void setCity(String city);
 
-	public void setCountry(DisplayOrderAndStatus country);
+	public void setCountry(Country country);
 
 	public void setLandmark(String landmark);
 

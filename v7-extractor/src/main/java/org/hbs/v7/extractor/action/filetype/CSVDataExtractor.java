@@ -6,8 +6,8 @@ import java.io.StringWriter;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.hbs.v7.beans.MediatorBean;
 import org.hbs.v7.beans.model.DataAttachments.EDataTrace;
-import org.hbs.v7.beans.model.data.MediatorBean;
 import org.hbs.v7.extractor.action.executor.DataExtractorBase;
 import org.hbs.v7.extractor.action.executor.IDataExtractor;
 import org.springframework.stereotype.Component;

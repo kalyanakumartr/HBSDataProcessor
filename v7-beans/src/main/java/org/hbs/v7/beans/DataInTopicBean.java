@@ -1,6 +1,6 @@
 package org.hbs.v7.beans;
 
-import org.hbs.v7.beans.model.EMessagePriority;
+import org.hbs.v7.util.EMessagePriority;
 
 public class DataInTopicBean extends AttachmentInfoBean implements IDataInTopicBean
 {

@@ -2,8 +2,6 @@ package org.hbs.core.kafka;
 
 import java.io.Serializable;
 
-import org.hbs.core.util.EnumInterface;
-
 public interface IKafkaConstants extends Serializable
 {
 	public String	INTERNAL_TOPIC		= "InternalTopic";

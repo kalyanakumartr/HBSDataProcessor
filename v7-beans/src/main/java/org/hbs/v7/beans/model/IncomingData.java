@@ -26,12 +26,13 @@ import org.hbs.core.util.EBusinessKey;
 import org.hbs.core.util.EnumInterface;
 import org.hbs.core.util.ICRUDBean;
 import org.hbs.core.util.IConstProperty;
-import org.hbs.v7.beans.model.dataprocess.CustomerProducer;
+import org.hbs.v7.userdefined.model.CustomerProducer;
+import org.hbs.v7.util.EMessagePriority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "operational_process_incoming_data")
+@Table(name = "core_incoming_data")
 public class IncomingData implements ICRUDBean, EBusinessKey, IConstProperty
 {
 	public enum EIncomingStatus implements EnumInterface

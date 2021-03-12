@@ -4,8 +4,5 @@ import java.io.Serializable;
 
 public interface ICoreData extends Serializable
 {
-
 	void setCoreBase(ICoreBase coreBase);
-
-
 }

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 
-	<name>ReZooms</name>
+	<name>RoadDataProcessor</name>
 	<description>Data Processor</description>
 
 	<properties>
@@ -32,8 +32,8 @@
 		<module>v7-extractor</module>
     	<module>v7-data-view</module>
   </modules>
-	<groupId>ReZooms</groupId>
-	<artifactId>ReZooms</artifactId>
+	<groupId>RoadDataProcessor</groupId>
+	<artifactId>RoadDataProcessor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
